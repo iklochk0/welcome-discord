@@ -25,7 +25,6 @@ const client = new Client({
   ]
 });
 
-// ID of the welcome channel
 const WELCOME_CHANNEL_ID = '1356245281066193056';
 
 client.once('ready', () => {
@@ -59,7 +58,7 @@ async function createWelcomeImage(member) {
     const background = await loadImage(backgroundPath);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
   } else {
-    ctx.fillStyle = '#2c2f33'; // fallback background
+    ctx.fillStyle = '#2c2f33';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
@@ -72,13 +71,36 @@ async function createWelcomeImage(member) {
 
   const avatarURL = member.user.displayAvatarURL({ extension: 'jpg', size: 256 });
   const avatar = await loadImage(avatarURL);
-  ctx.drawImage(avatar, 25, 25, 200, 200);
+  ctx.drawImage(avatar, 25, 0, 200, 200);
   ctx.restore();
 
-  // Draw welcome text
-  ctx.font = '40px OpenSans';
+  // Draw welcome text with shadow and background
+  const text = `WELCOME ${member.user.username.toUpperCase()}`;
+  ctx.font = 'bold 40px OpenSans';
+
+  const textMetrics = ctx.measureText(text);
+  const textWidth = textMetrics.width;
+  const textX = 250;
+  const textY = 150;
+
+  // Background rectangle for text
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+  ctx.fillRect(textX - 20, textY - 40, textWidth + 40, 60);
+
+  // Text with shadow
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
+  ctx.shadowBlur = 4;
+
   ctx.fillStyle = '#ffffff';
-  ctx.fillText(`WELCOME ${member.user.username.toUpperCase()}`, 250, 150);
+  ctx.fillText(text, textX, textY);
+
+  // Reset shadow
+  ctx.shadowColor = 'transparent';
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
+  ctx.shadowBlur = 0;
 
   return canvas.toBuffer();
 }
