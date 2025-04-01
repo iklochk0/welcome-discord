@@ -53,7 +53,7 @@ async function createWelcomeImage(member) {
   const canvas = createCanvas(800, 250);
   const ctx = canvas.getContext('2d');
 
-  const backgroundPath = path.join(__dirname, 'background.jpg');
+  const backgroundPath = path.join(__dirname, 'background.png');
 
   if (fs.existsSync(backgroundPath)) {
     const background = await loadImage(backgroundPath);
