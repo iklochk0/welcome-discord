@@ -1,8 +1,16 @@
-require('dotenv').config();
-const { Client, GatewayIntentBits } = require('discord.js');
-const { createCanvas, loadImage } = require('canvas');
-const fs = require('fs');
-const path = require('path');
+import dotenv from 'dotenv';
+dotenv.config();
+
+import { Client, GatewayIntentBits } from 'discord.js';
+import { createCanvas, loadImage } from 'canvas';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// __dirname emulation for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const client = new Client({
   intents: [
@@ -15,7 +23,7 @@ const client = new Client({
 const WELCOME_CHANNEL_ID = '1356245281066193056';
 
 client.once('ready', () => {
-  console.log(`Бот запущено як ${client.user.tag}`);
+  console.log(`Bot is online as ${client.user.tag}`);
 });
 
 client.on('guildMemberAdd', async (member) => {
@@ -26,13 +34,12 @@ client.on('guildMemberAdd', async (member) => {
     const imageBuffer = await createWelcomeImage(member);
 
     await channel.send({
-      content: `Вітаємо, ${member}!  
-Шукай інструкції в <#канал-verification> та <#канал-rules>. Успіхів у Королівстві!`,
+      content: `Welcome ${member.user}!\nPlease check <#1356245281066193056> and <#1354555963499352174> to get started.`,
       files: [{ attachment: imageBuffer, name: 'welcome.png' }]
     });
   } catch (err) {
-    console.error('Помилка при створенні вітального зображення:', err);
-    await channel.send(`Привіт, ${member}! Раді бачити тебе на сервері.`);
+    console.error('Error generating welcome image:', err);
+    await channel.send(`Welcome ${member.user}! Glad to have you here.`);
   }
 });
 
@@ -46,11 +53,11 @@ async function createWelcomeImage(member) {
     const background = await loadImage(backgroundPath);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
   } else {
-    ctx.fillStyle = '#2c2f33'; // запасний Discord-стиль фон
+    ctx.fillStyle = '#2c2f33'; // Discord dark style fallback
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // Коло під аватарку
+  // Avatar circle
   ctx.save();
   ctx.beginPath();
   ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
@@ -62,7 +69,7 @@ async function createWelcomeImage(member) {
   ctx.drawImage(avatar, 25, 25, 200, 200);
   ctx.restore();
 
-  // Напис "WELCOME Username"
+  // Welcome text
   ctx.font = 'bold 40px Sans';
   ctx.fillStyle = '#ffffff';
   ctx.fillText(`WELCOME ${member.user.username.toUpperCase()}`, 250, 150);
