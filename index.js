@@ -13,7 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Register Open Sans font
-registerFont(path.join(__dirname, 'OpenSans-Regular.ttf'), {
+registerFont(path.join(__dirname, "fonts", 'OpenSans-Regular.ttf'), {
   family: 'OpenSans'
 });
 
