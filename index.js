@@ -2,15 +2,20 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { Client, GatewayIntentBits } from 'discord.js';
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage, registerFont } from 'canvas';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-// __dirname emulation for ES modules
+// __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Register Open Sans font
+registerFont(path.join(__dirname, 'OpenSans-Regular.ttf'), {
+  family: 'OpenSans'
+});
 
 const client = new Client({
   intents: [
@@ -20,6 +25,7 @@ const client = new Client({
   ]
 });
 
+// ID of the welcome channel
 const WELCOME_CHANNEL_ID = '1356245281066193056';
 
 client.once('ready', () => {
@@ -53,11 +59,11 @@ async function createWelcomeImage(member) {
     const background = await loadImage(backgroundPath);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
   } else {
-    ctx.fillStyle = '#2c2f33'; // Discord dark style fallback
+    ctx.fillStyle = '#2c2f33'; // fallback background
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // Avatar circle
+  // Draw avatar
   ctx.save();
   ctx.beginPath();
   ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
@@ -69,8 +75,8 @@ async function createWelcomeImage(member) {
   ctx.drawImage(avatar, 25, 25, 200, 200);
   ctx.restore();
 
-  // Welcome text
-  ctx.font = 'bold 40px Sans';
+  // Draw welcome text
+  ctx.font = '40px OpenSans';
   ctx.fillStyle = '#ffffff';
   ctx.fillText(`WELCOME ${member.user.username.toUpperCase()}`, 250, 150);
 
