@@ -34,7 +34,7 @@ client.on('guildMemberAdd', async (member) => {
     const imageBuffer = await createWelcomeImage(member);
 
     await channel.send({
-      content: `Welcome ${member.user}!\nPlease check <#1354555963499352174> to get started.`,
+      content: `Welcome ${member.user}!\nPlease check <#1354555963499352174> and <#1354860576429576404> to get started.`,
       files: [{ attachment: imageBuffer, name: 'welcome.png' }]
     });
   } catch (err) {
