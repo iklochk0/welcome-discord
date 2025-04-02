@@ -49,7 +49,7 @@ client.on('guildMemberAdd', async (member) => {
 });
 
 async function createWelcomeImage(member) {
-  const canvas = createCanvas(800, 250);
+  const canvas = createCanvas(800, 350);
   const ctx = canvas.getContext('2d');
 
   const backgroundPath = path.join(__dirname, 'background.jpg');
@@ -65,13 +65,13 @@ async function createWelcomeImage(member) {
   // Draw avatar
   ctx.save();
   ctx.beginPath();
-  ctx.arc(150, 150, 75, 0, Math.PI * 2, true); // трохи менше коло
+  ctx.arc(175, 175, 100, 0, Math.PI * 2, true); // трохи менше коло
   ctx.closePath();
   ctx.clip();
 
   const avatarURL = member.user.displayAvatarURL({ extension: 'jpg', size: 256 });
   const avatar = await loadImage(avatarURL);
-  ctx.drawImage(avatar, 25, 50, 100, 100);
+  ctx.drawImage(avatar, 25, 25, 200, 200);
   ctx.restore();
 
   // Draw welcome text
