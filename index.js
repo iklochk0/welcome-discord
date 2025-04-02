@@ -65,7 +65,7 @@ async function createWelcomeImage(member) {
   // Draw avatar
   ctx.save();
   ctx.beginPath();
-  ctx.arc(100, 125, 75, 0, Math.PI * 2, true); // трохи менше коло
+  ctx.arc(90, 125, 75, 0, Math.PI * 2, true); // трохи менше коло
   ctx.closePath();
   ctx.clip();
 
@@ -82,7 +82,7 @@ async function createWelcomeImage(member) {
   const textWidth = textMetrics.width;
 
   const textY = 120;
-  const textX = 180;
+  const textX = 190;
 
   // Semi-transparent background for text
   ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
