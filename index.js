@@ -49,7 +49,7 @@ client.on('guildMemberAdd', async (member) => {
 });
 
 async function createWelcomeImage(member) {
-  const canvas = createCanvas(800, 260);
+  const canvas = createCanvas(800, 255);
   const ctx = canvas.getContext('2d');
 
   const backgroundPath = path.join(__dirname, 'background.jpg');
