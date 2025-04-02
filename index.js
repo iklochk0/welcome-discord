@@ -65,30 +65,31 @@ async function createWelcomeImage(member) {
   // Draw avatar
   ctx.save();
   ctx.beginPath();
-  ctx.arc(100, 100, 100, 0, Math.PI * 2, true);
+  ctx.arc(100, 125, 75, 0, Math.PI * 2, true); // трохи менше коло
   ctx.closePath();
   ctx.clip();
 
   const avatarURL = member.user.displayAvatarURL({ extension: 'jpg', size: 256 });
   const avatar = await loadImage(avatarURL);
-  ctx.drawImage(avatar, 25, 25, 200, 200);
+  ctx.drawImage(avatar, 25, 50, 150, 150);
   ctx.restore();
 
-  // Draw welcome text with shadow and background
+  // Draw welcome text
   const text = `WELCOME ${member.user.username.toUpperCase()}`;
-  ctx.font = 'regular 35px OpenSans';
+  ctx.font = 'bold 36px OpenSans';
 
   const textMetrics = ctx.measureText(text);
   const textWidth = textMetrics.width;
-  const textX = 250;
-  const textY = 150;
 
-  // Background rectangle for text
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-  ctx.fillRect(textX - 20, textY - 40, textWidth + 40, 60);
+  const textX = 210;
+  const textY = 170;
 
-  // Text with shadow
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+  // Semi-transparent background for text
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+  ctx.fillRect(textX - 15, textY - 38, textWidth + 30, 52);
+
+  // Shadow for text
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
   ctx.shadowOffsetX = 2;
   ctx.shadowOffsetY = 2;
   ctx.shadowBlur = 4;
@@ -97,10 +98,10 @@ async function createWelcomeImage(member) {
   ctx.fillText(text, textX, textY);
 
   // Reset shadow
-  //ctx.shadowColor = 'transparent';
-  //ctx.shadowOffsetX = 0;
-  //ctx.shadowOffsetY = 0;
-  //ctx.shadowBlur = 0;
+  ctx.shadowColor = 'transparent';
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
+  ctx.shadowBlur = 0;
 
   return canvas.toBuffer();
 }
