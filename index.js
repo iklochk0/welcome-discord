@@ -65,18 +65,18 @@ async function createWelcomeImage(member) {
   // Draw avatar
   ctx.save();
   ctx.beginPath();
-  ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+  ctx.arc(100, 100, 100, 0, Math.PI * 2, true);
   ctx.closePath();
   ctx.clip();
 
   const avatarURL = member.user.displayAvatarURL({ extension: 'jpg', size: 256 });
   const avatar = await loadImage(avatarURL);
-  ctx.drawImage(avatar, 18, 18, 150, 150);
+  ctx.drawImage(avatar, 25, 25, 200, 200);
   ctx.restore();
 
   // Draw welcome text with shadow and background
   const text = `WELCOME ${member.user.username.toUpperCase()}`;
-  ctx.font = 'bold 35px OpenSans';
+  ctx.font = 'regular 35px OpenSans';
 
   const textMetrics = ctx.measureText(text);
   const textWidth = textMetrics.width;
@@ -97,10 +97,10 @@ async function createWelcomeImage(member) {
   ctx.fillText(text, textX, textY);
 
   // Reset shadow
-  ctx.shadowColor = 'transparent';
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-  ctx.shadowBlur = 0;
+  //ctx.shadowColor = 'transparent';
+  //ctx.shadowOffsetX = 0;
+  //ctx.shadowOffsetY = 0;
+  //ctx.shadowBlur = 0;
 
   return canvas.toBuffer();
 }
