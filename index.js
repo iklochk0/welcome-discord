@@ -71,12 +71,12 @@ async function createWelcomeImage(member) {
 
   const avatarURL = member.user.displayAvatarURL({ extension: 'jpg', size: 256 });
   const avatar = await loadImage(avatarURL);
-  ctx.drawImage(avatar, 25, 0, 200, 200);
+  ctx.drawImage(avatar, 18, 18, 150, 150);
   ctx.restore();
 
   // Draw welcome text with shadow and background
   const text = `WELCOME ${member.user.username.toUpperCase()}`;
-  ctx.font = 'bold 40px OpenSans';
+  ctx.font = 'bold 35px OpenSans';
 
   const textMetrics = ctx.measureText(text);
   const textWidth = textMetrics.width;
