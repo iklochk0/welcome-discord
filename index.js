@@ -81,15 +81,15 @@ async function createWelcomeImage(member) {
   const textMetrics = ctx.measureText(text);
   const textWidth = textMetrics.width;
 
-  const textX = 0;
-  const textY = 170;
+  const textY = 100;
+  const textX = 120;
 
   // Semi-transparent background for text
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
   ctx.fillRect(textX - 15, textY - 38, textWidth + 30, 52);
 
   // Shadow for text
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+  ctx.shadowColor = 'rgba(0, 0, 0, 1)';
   ctx.shadowOffsetX = 2;
   ctx.shadowOffsetY = 2;
   ctx.shadowBlur = 4;
