@@ -65,23 +65,23 @@ async function createWelcomeImage(member) {
   // Draw avatar
   ctx.save();
   ctx.beginPath();
-  ctx.arc(100, 125, 75, 0, Math.PI * 2, true); // трохи менше коло
+  ctx.arc(100, 100, 50, 0, Math.PI * 2, true); // трохи менше коло
   ctx.closePath();
   ctx.clip();
 
   const avatarURL = member.user.displayAvatarURL({ extension: 'jpg', size: 256 });
   const avatar = await loadImage(avatarURL);
-  ctx.drawImage(avatar, 25, 50, 150, 150);
+  ctx.drawImage(avatar, 25, 50, 100, 100);
   ctx.restore();
 
   // Draw welcome text
   const text = `WELCOME ${member.user.username.toUpperCase()}`;
-  ctx.font = 'bold 36px OpenSans';
+  ctx.font = 'bold 32px OpenSans';
 
   const textMetrics = ctx.measureText(text);
   const textWidth = textMetrics.width;
 
-  const textX = 210;
+  const textX = 125;
   const textY = 170;
 
   // Semi-transparent background for text
